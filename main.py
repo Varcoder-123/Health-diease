@@ -130,8 +130,7 @@ medications.drop('_id', axis=1, inplace=True)
 # diets = pd.read_csv("datasets/diets.csv")
 
 
-# load model===========================================
-svc = pickle.load(open('model/svc.pkl','rb'))
+
 
 
 #============================================================
