@@ -1,0 +1,68 @@
+.engulf{
+    height: 120vh;
+    background-image: linear-gradient(to right, rgba(68, 199, 173, 0.8), rgba(11, 121, 88, 0.8)), url(../static/hero.jpeg);
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    border-bottom: 3px solid white;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgb(202, 193, 193);
+    /* achieves side portion to be mideled */
+    /* padding is not inherited */
+    padding: 3rem;
+    background-image: linear-gradient(to right bottom, #291919, #5643fa);
+    border: 2px solid white;
+}
+
+.nav-item{
+  
+    
+   margin-right: 30px;
+
+
+    
+}
+
+
+/* .nav-item:hover {
+    display: block; /* This line is redundant */
+    /* background-image: linear-gradient(to right bottom, #2998ff, #5643fa);
+    transform: translateY(-4px);
+    border-radius: 50px;
+    padding: 0px 20px; */
+ */
+
+
+.nav-link:link,
+.nav-link:visited{
+    display: inline-block;
+    /* background-image: linear-gradient(to right bottom, #2998ff, #5643fa) !important; */
+    width: 100%;
+    color: aqua;
+    margin-right: 50px;
+    border-radius: 50px;
+    /* padding: 10px 20px; */
+    transition: all 0.4s;
+    text-align: center;
+}
+
+.nav-link:link:hover,
+.nav-link:visited:hover{
+    display: inline-block;
+    background-image: linear-gradient(to right bottom, #291919, #5643fa);
+    border: 2px solid white;
+    margin-right: 50px;
+    border-radius: 50px;
+    /* padding: 10px 20px; */
+    transition: all 0.4s;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+}
