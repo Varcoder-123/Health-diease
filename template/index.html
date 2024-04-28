@@ -37,38 +37,38 @@
 
     <div class="engulf">
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border:2px solid white;">
-            <div class="container-fluid">
-                
-                <div class="logo">
-                    <img class="myimg" src="{{ url_for('static', filename='img.png') }}" alt="">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="border:2px solid white;">
+                <div class="container-fluid">
+                    
+                    <div class="logo">
+                        <img class="myimg" src="{{ url_for('static', filename='img.png') }}" alt="">
+                    </div>
+        
+                    <a class="navbar-brand" href="#" style="margin-left: 3rem; color: white;">Health Center</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/developer">Developer</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/blog">Blog</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-    
-                <a class="navbar-brand" href="#" style="margin-left: 3rem; color: white;">Health Center</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link " aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="/about">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="/contact">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="/developer">Developer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="/blog">Blog</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+            </nav>
 
 
 
@@ -79,7 +79,7 @@
                 
                 <div class="left" style="width: 49%;display: flex;  align-items: center; justify-content: center;">
 
-                    <form action="/predict" method="post" style="width: 100%;">
+                    <form  class="form" action="/predict" method="post" style="width: 70%;">
                         <div class="form-group">
                             <label for="symptoms">Select Symptoms:</label>
                             <input type="text" class="form-control", id="symptoms" name="symptoms" placeholder="type systems such as itching, sleeping, aching etc">
@@ -94,19 +94,28 @@
                         <!-- Display the transcribed text here -->
                         <div name="mysysms" id="transcription"></div>
                 
-                        {% if message %}
+                        <!-- {% if message %}
                         <p>{{ message }}</p>
                         {% endif %}
                         <br>
-                
-                        <button type="submit" class="btn btn-danger btn-lg" style="width: 100%; padding: 14px; margin-bottom: 5px;">Predict</button>
+                 -->
+                 <br>
+                        <button type="submit" class="btn btn-danger btn-lg" style="width: 100%; padding: 14px; margin-bottom: 5px; border-radius: 20px;">Predict</button>
                     </form>
                 </div>
                 <div class="right">
 
                 </div>
             </div>
-        </div>
+
+
+            {% if message %}
+                <div class="item_val" style="list-style: none; background-image: linear-gradient(to right bottom, #161615, #150b05); flex: 1; width: 70%; align-items: center; justify-content: center; display: flex; margin-right: auto;margin-left:auto; padding:5px ; border-radius: 6px; border: 2px solid white;">
+                    <p style="margin-bottom: 0px; padding: 10px;">{{message}}</p>              
+            </div>           
+            {% endif %}
+
+     </div>
 
 
 
@@ -139,7 +148,7 @@
         </div>
     </div> -->
     
-    <div class="container2" style="width: 100%; margin-top:-30pxpx; margin-right: auto; margin-left: auto; display: flex; flex-wrap: wrap; backdrop-filter: blur(5px); color: white; justify-content: space-evenly;">
+    <div class="container2" style="width: 80%; margin-top:-30pxpx; margin-right: auto; margin-left: auto; display: flex; flex-wrap: wrap; backdrop-filter: blur(5px); color: white; justify-content: space-evenly;">
         <div class="text" style="height: 300px; width:40%; margin: 40px; background-color: #99F741; display: flex; border-radius: 40px; overflow: hidden; border:2px solid white;">
             <div class="modal-header" style="background-color: #020606; color:white; border-right: 3px solid white;">
                 <h5 class="modal-title" id="medicationsModalLabel" style="margin: 20px;">Medications</h5>
