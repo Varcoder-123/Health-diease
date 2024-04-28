@@ -7,7 +7,7 @@ from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-# training imports.
+# training imports
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
@@ -130,7 +130,8 @@ medications.drop('_id', axis=1, inplace=True)
 # diets = pd.read_csv("datasets/diets.csv")
 
 
-
+# load model===========================================
+# svc = pickle.load(open('model/svc.pkl','rb'))
 
 
 #============================================================
@@ -160,9 +161,25 @@ diseases_list = {15: 'Fungal infection', 4: 'Allergy', 16: 'GERD', 9: 'Chronic c
 # Model Prediction function
 def get_predicted_value(patient_symptoms):
     input_vector = np.zeros(len(symptoms_dict))
+    original_input_vector = input_vector.copy()
+    not_present = []
     for item in patient_symptoms:
-        input_vector[symptoms_dict[item]] = 1
-    return diseases_list[svc.predict([input_vector])[0]]
+        lower_case = item.lower()
+        indexes = [key for key in symptoms_dict.keys() if lower_case in key]
+        if not indexes:
+            not_present.append(item)
+        else:
+            input_vector[symptoms_dict[indexes[0]]] = 1
+        
+    if not np.array_equal(input_vector, original_input_vector):
+        diseases_final = diseases_list[svc.predict([input_vector])[0]]
+        print("array not eq")
+    else:
+        diseases_final = []
+        print("array eq")
+        
+
+    return diseases_final,not_present
 
 
 
@@ -189,18 +206,48 @@ def home():
 
             # Split the user's input into a list of symptoms (assuming they are comma-separated)
             user_symptoms = [s.strip() for s in symptoms.split(',')]
+            message = "Please either write symptoms or you have written misspelled symptoms"
             # Remove any extra characters, if any
             user_symptoms = [symptom.strip("[]' ") for symptom in user_symptoms]
             predicted_disease = get_predicted_value(user_symptoms)
-            dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease)
-
             my_precautions = []
-            for i in precautions[0]:
-                my_precautions.append(i)
+            if len(predicted_disease[0]) > 0:
+                dis_des, precautions, medications, rec_diet, workout = helper(predicted_disease[0])
 
-            return render_template('index.html', predicted_disease=predicted_disease, dis_des=dis_des,
+                for i in precautions[0]:
+                    my_precautions.append(i)
+
+            print(predicted_disease[1],predicted_disease[0])
+            
+
+
+            if(len(predicted_disease[0]) > 0 and len(predicted_disease[1]) == 0):
+                return render_template('index.html', predicted_disease=predicted_disease[0], dis_des=dis_des,
                                    my_precautions=my_precautions, medications=medications, my_diet=rec_diet,
                                    workout=workout)
+            elif(len(predicted_disease[0]) > 0 and len(predicted_disease[1]) > 0):
+                if(len(predicted_disease[1]) == 1):
+                    value_str = str(predicted_disease[1][0])
+                else:
+                    value_str = ','.join(str(value) for value in predicted_disease[1])
+
+                message = f"Sorry for incovienice, disease {value_str} which you mentioned is not listed in our database.Will be added in future after research"
+
+                return render_template('index.html', predicted_disease=predicted_disease[0], dis_des=dis_des,
+                                   my_precautions=my_precautions, medications=medications, my_diet=rec_diet,
+                                   workout=workout,message=message)
+            elif(len(predicted_disease[0]) == 0 and len(predicted_disease[1]) > 0):
+                if(len(predicted_disease[1]) == 1):
+                    value_str = str(predicted_disease[1][0])
+                else:
+                    value_str = ','.join(str(value) for value in predicted_disease[1])
+
+                message = f"Sorry for incovienice, disease {value_str} which you mentioned is not listed in our database.Will be added in future"
+
+                return render_template('index.html',message=message)
+
+
+
 
     return render_template('index.html')
 
